@@ -1,0 +1,11 @@
+/* NAVIGATOR BAR */
+
+.bg-light {
+    font-weight: bold;
+    background-color: #cee !important;
+}
+
+.navbar-nav .dropdown-menu,
+.dropdown-item {
+    background-color: #cee;
+}
