@@ -31,6 +31,17 @@
                     <li class="nav-item active px-2">
                         <a class="nav-link" <?php echo anchor("admin/admin_page", "Amministrazione", "Titolo='Amministrazione'"); ?></a>
                     </li>
+
+                    <li class="nav-item dropdown px-2">
+                        <a class="nav-link dropdown-toggle" href="<?php echo base_url('')?>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Presenze
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <?php echo anchor("admin/presenze/gestionepresenze", "Gestione presenze", "class='dropdown-item px-2'"); ?>
+                            <div class="dropdown-divider"></div>
+                        </div>
+                    </li>
+
                     <li class="nav-item dropdown px-2">
                         <a class="nav-link dropdown-toggle" href="<?php echo base_url('')?>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Lezioni
@@ -52,8 +63,23 @@
                             <?php echo anchor("admin/istruttori/nuovoistruttore", "Inserisci istruttore", "class='dropdown-item px-2'"); ?> 
                         </div>
                     </li>
+
+                    <li class="nav-item dropdown px-2">
+                        <a class="nav-link dropdown-toggle" href="<?php echo base_url('')?>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Utenti
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <?php echo anchor("admin/utenti/elencoutenti", "Elenco utenti", "class='dropdown-item px-2'"); ?>
+                            <div class="dropdown-divider"></div>
+                            <?php echo anchor("admin/utenti/nuovoutente", "Inserisci utente", "class='dropdown-item px-2'"); ?> 
+                        </div>
+                    </li>
+
                     <li class="nav-item active px-2">
                         <a class="nav-link" href="<?php echo base_url('')?>">Ritorna alla Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active px-2">
+                        <a class="nav-link" <?php echo anchor("logout", "Logout", "Titolo='Logout'"); ?></a>
                     </li>
                 </ul>
             </div>

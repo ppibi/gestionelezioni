@@ -34,6 +34,17 @@
 
                     <li class="nav-item dropdown px-2">
                         <a class="nav-link dropdown-toggle" href="<?php echo base_url('')?>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Presenze
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item px-2" <?php echo anchor("presenze/inseriscipresenze", "Inserimento presenze", "Titolo='Inserimento presenze'"); ?></a> 
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item px-2" ></a> 
+                        </div>
+                    </li>
+                    
+                    <li class="nav-item dropdown px-2">
+                        <a class="nav-link dropdown-toggle" href="<?php echo base_url('')?>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Istruttori
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -42,8 +53,13 @@
                             <a class="dropdown-item px-2" ></a> 
                         </div>
                     </li>
+                    
                     <li class="nav-item active px-2">
                         <a class="nav-link" <?php echo anchor("admin/admin_page", "Amministrazione", "Titolo='Amministrazione'"); ?></a>
+                    </li>
+                    
+                    <li class="nav-item active px-2">
+                        <a class="nav-link" <?php echo anchor("logout", "Logout", "Titolo='Logout'"); ?></a>
                     </li>
 
                 </ul>
@@ -52,7 +68,7 @@
         
     </div>
     
-    <div class="container-fluid text-center">
+    <div class="container-fluid text-center pt-3">
         <h2><?= esc($Titolo) ?></h2>
     </div>
 

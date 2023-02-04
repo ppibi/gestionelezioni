@@ -20,6 +20,13 @@
 
     <div class="input-group mb-3">
         <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">E-mail</span>
+        </div>
+        <input type="email" class="form-control" placeholder="EmailIstruttore" aria-label="EmailIstruttore" aria-describedby="basic-addon1" name="EmailIstruttore" value="<?= set_value("EmailIstruttore") ?>">
+    </div> 
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Password</span>
         </div>
         <input type="text" class="form-control" placeholder="PasswordIstruttore" aria-label="PasswordIstruttore" aria-describedby="basic-addon1" name="PasswordIstruttore" value="<?= set_value("PasswordIstruttore") ?>">

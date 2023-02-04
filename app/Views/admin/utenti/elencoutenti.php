@@ -2,17 +2,17 @@
         <thead>
             <tr>
                 <th scope="col"></th>
-                <th scope="col">Istruttore</th>
                 <th scope="col">Username</th>
-                <th scope="col">Note</th>
+                <th scope="col">Gruppo</th>
+                <th scope="col">E-mail</th>
             </tr>
         </thead>
         <tbody>
 
         <?php 
-            foreach ($ElencoIstruttori as $Istruttore): 
+            foreach ($ElencoUtenti as $Utente): 
                 $ClasseRiga = "";
-                if (isset($IdNuovoIstruttore) AND ($IdNuovoIstruttore == $Istruttore["IdIstruttore"])) :
+                if (isset($IdNuovoUtente) AND ($IdNuovoUtente == $Utente["IdUtente"])) :
                     $ClasseRiga = "class='table-primary'";
                 endif;
                 
@@ -21,15 +21,15 @@
                 <th class="col-md-1" scope="row">
                 </th>
                 <td class="col-md-2">
-                    <?php echo anchor("admin/istruttori/" . $Istruttore["Istruttore"], $Istruttore["Istruttore"]); ?>
+                    <?php echo anchor("admin/utenti/" . $Utente["username"], $Utente["username"]); ?>
                 </td>
-                <td class="col-md-2"><?= esc($Istruttore["username"]) ?></td>
-                <td class="col-md-2"><?= esc($Istruttore["Note"]) ?></td>
+                <td class="col-md-2"><?= esc($Utente["group"]) ?></td>
+                <td class="col-md-2"><?= esc($Utente["email"]) ?></td>
             </tr>
         <?php endforeach ?>
             <tr>
                 <td class="text-center" colspan="4">
-                    <?php echo anchor("admin/istruttori/nuovoistruttore", "Nuovo istruttore", "class='btn btn-primary' role='button'"); ?>
+                    <?php echo anchor("admin/utenti/nuovoutente", "Nuovo utente", "class='btn btn-primary' role='button'"); ?>
                 </td>
                 
             </tr>
@@ -39,8 +39,8 @@
 
 <?php /*
     <div class="text-center">
-         <?php echo anchor("admin/istruttori/nuovoistruttore", "Inserisci istruttore", "class='btn btn-primary stretched-link'"); 
-//             "Titolo='Inserisci istruttore'"); ?>
+         <?php echo anchor("admin/utenti/nuovoutente", "Inserisci utente", "class='btn btn-primary stretched-link'"); 
+//             "Titolo='Inserisci utente'"); ?>
            </<div> */?>
 
 

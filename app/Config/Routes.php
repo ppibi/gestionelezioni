@@ -3,9 +3,14 @@
 namespace Config;
 
 use App\Controllers\GestioneIstruttori;
+use App\Controllers\GestionePresenze;
+use App\Controllers\Istruttori;
+use App\Controllers\Lezioni;
 use App\Controllers\Admin\Admin;
 use App\Controllers\Admin\Admin_GestioneIstruttori;
 use App\Controllers\Admin\Admin_GestioneLezioni;
+use App\Controllers\Admin\Admin_GestionePresenze;
+use App\Controllers\Admin\Admin_GestioneUtenti;
 
 
 // Create a new instance of our RouteCollection class.
@@ -37,19 +42,27 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
-$routes->get('istruttori/elencoistruttori', [GestioneIstruttori::class, 'index']);
-$routes->get('istruttori/(:segment)', [GestioneIstruttori::class, 'view']);
+$routes->get('/istruttori/elencoistruttori', [GestioneIstruttori::class, 'index']);
+$routes->get('/istruttori/(:segment)', [GestioneIstruttori::class, 'view']);
+//$routes->get('/presenze/inseriscipresenze', [GestionePresenze::class, 'inseriscipresenze']);
+$routes->match(['get', 'post'], '/presenze/inserimentopresenze', [GestionePresenze::class, 'inserimentopresenze']);
 
 // ADMINISTRATIVE PART
-$routes->get('admin/admin_page', 'Admin\Admin::index');
-$routes->match(['get', 'post'], 'admin/istruttori/nuovoistruttore', [Admin_GestioneIstruttori::class, 'nuovoistruttore']);
-$routes->get('admin/istruttori/elencoistruttori', [Admin_GestioneIstruttori::class, 'index']);
+$routes->get('/admin/admin_page', 'Admin\Admin::index');
+$routes->match(['get', 'post'], '/admin/istruttori/nuovoistruttore', [Admin_GestioneIstruttori::class, 'nuovoistruttore']);
+$routes->get('/admin/istruttori/elencoistruttori', [Admin_GestioneIstruttori::class, 'index']);
 $routes->get('/admin/istruttori/(:segment)', [Admin_GestioneIstruttori::class, 'view']);
-$routes->match(['get', 'post'], 'admin/lezioni/nuovalezione', [Admin_GestioneLezioni::class, 'nuovalezione']);
-$routes->get('admin/lezioni/elencolezioni', [Admin_GestioneLezioni::class, 'index']);
+$routes->match(['get', 'post'], '/admin/lezioni/nuovalezione', [Admin_GestioneLezioni::class, 'nuovalezione']);
+$routes->get('/admin/lezioni/elencolezioni', [Admin_GestioneLezioni::class, 'index']);
 $routes->get('/admin/lezioni/(:segment)', [Admin_GestioneLezioni::class, 'view']);
+$routes->match(['get', 'post'], '/admin/presenze/gestionepresenze', [Admin_GestionePresenze::class, 'adminInserimentoPresenze']);
+$routes->match(['get', 'post'], '/admin/utenti/nuovoutente', [Admin_GestioneUtenti::class, 'nuovoutente']);
+$routes->get('/admin/utenti/elencoutenti', [Admin_GestioneUtenti::class, 'index']);
+$routes->get('/admin/utenti/(:segment)', [Admin_GestioneUtenti::class, 'view']);
 
 service('auth')->routes($routes);
+
+// Inserire controlli su accesso non autorizzato
 
 /*
  * --------------------------------------------------------------------

@@ -14,7 +14,7 @@ class AuthGroups extends ShieldAuthGroups
      * --------------------------------------------------------------------
      * The group that a newly registered user is added to.
      */
-    public string $defaultGroup = 'user';
+    public string $defaultGroup = 'istruttore';
 
     /**
      * --------------------------------------------------------------------
@@ -28,16 +28,20 @@ class AuthGroups extends ShieldAuthGroups
     public array $groups = [
         'superadmin' => [
             'title'       => 'Super Admin',
-            'description' => 'Complete control of the site.',
+            'description' => "Controllo completo dell'applicazione.",
         ],
         'admin' => [
             'title'       => 'Admin',
-            'description' => 'Day to day administrators of the site.',
+            'description' => 'Amministrazione lezioni.',
         ],
-        'developer' => [
+        'istruttore' => [
+            'title'       => 'Istruttore',
+            'description' => 'Istruttore.',
+        ],
+/*        'developer' => [
             'title'       => 'Developer',
             'description' => 'Site programmers.',
-        ],
+        ], 
         'user' => [
             'title'       => 'User',
             'description' => 'General users of the site. Often customers.',
@@ -45,7 +49,7 @@ class AuthGroups extends ShieldAuthGroups
         'beta' => [
             'title'       => 'Beta User',
             'description' => 'Has access to beta-level features.',
-        ],
+        ], */
     ];
 
     /**
@@ -64,7 +68,7 @@ class AuthGroups extends ShieldAuthGroups
         'users.create'        => 'Can create new non-admin users',
         'users.edit'          => 'Can edit existing non-admin users',
         'users.delete'        => 'Can delete existing non-admin users',
-        'beta.access'         => 'Can access beta-level features',
+        'beta.access'         => 'Can access beta-level features', 
     ];
 
     /**
@@ -77,16 +81,16 @@ class AuthGroups extends ShieldAuthGroups
         'superadmin' => [
             'admin.*',
             'users.*',
-            'beta.*',
+//            'beta.*',
         ],
         'admin' => [
             'admin.access',
             'users.create',
             'users.edit',
             'users.delete',
-            'beta.access',
+//            'beta.access',
         ],
-        'developer' => [
+/*        'developer' => [
             'admin.access',
             'admin.settings',
             'users.create',
@@ -96,6 +100,6 @@ class AuthGroups extends ShieldAuthGroups
         'user' => [],
         'beta' => [
             'beta.access',
-        ],
-    ];
+        ], */
+    ]; 
 }

@@ -79,7 +79,7 @@ class Auth extends ShieldAuth
      * @var array<string, class-string<AuthenticatorInterface>>
      */
     public array $authenticators = [
-        'tokens'  => AccessTokens::class,
+/*        'tokens'  => AccessTokens::class, */
         'session' => Session::class,
     ];
 
@@ -126,7 +126,7 @@ class Auth extends ShieldAuth
      */
     public array $authenticationChain = [
         'session',
-        'tokens',
+//        'tokens',
     ];
 
     /**
@@ -135,7 +135,7 @@ class Auth extends ShieldAuth
      * --------------------------------------------------------------------
      * Determines whether users can register for the site.
      */
-    public bool $allowRegistration = true;
+//    public bool $allowRegistration = true;
 
     /**
      * --------------------------------------------------------------------
@@ -348,7 +348,9 @@ class Auth extends ShieldAuth
      */
     public function loginRedirect(): string
     {
-        $url = setting('Auth.redirects')['login'];
+        $url = (auth()->user()->inGroup('admin') OR auth()->user()->inGroup('superadmin'))
+            ? '/admin/admin_page'
+            : setting('Auth.redirects')['login'];
 
         return $this->getUrl($url);
     }

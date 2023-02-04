@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use \App\Models\Admin\Admin_Istruttori;
+use CodeIgniter\Shield\Entities\User;
 
 class Admin_GestioneIstruttori extends \App\Controllers\BaseController
 {
@@ -49,12 +50,13 @@ class Admin_GestioneIstruttori extends \App\Controllers\BaseController
                 . view("templates/footer");
         }
 
-        $post = $this->request->getPost(["Istruttore", "UsernameIstruttore", "PasswordIstruttore", "Note"]);
+        $post = $this->request->getPost(["Istruttore", "UsernameIstruttore", "EmailIstruttore", "PasswordIstruttore", "Note"]);
 
         // Verifica se i dati sono validati
         if (! $this->validateData($post, [
             "Istruttore" => "required|max_length[100]|min_length[3]",
             "UsernameIstruttore"  => "required|max_length[20]|min_length[5]",
+            "EmailIstruttore"  => "required|valid_email",
             "PasswordIstruttore"  => "required|max_length[30]|min_length[5]",
         ])) {
             // The validation fails, so returns the form.
@@ -65,10 +67,24 @@ class Admin_GestioneIstruttori extends \App\Controllers\BaseController
 
         $Modello = model(Admin_Istruttori::class);
         
+        $Utenti = model('UserModel');
+        $Utente = new User([
+            'username' => $post["UsernameIstruttore"],
+            'email'    => $post["EmailIstruttore"],
+            'password' => $post["PasswordIstruttore"],
+        ]);
+        $Utenti->save($Utente);
+
+        // To get the complete user object with ID, we need to get from the database
+        $IdNuovoUtente = $Utenti->getInsertID();
+        $Utente = $Utenti->findById($Utenti->getInsertID());
+
+        // Add to default group
+        $Utenti->addToDefaultGroup($Utente);
+        
         $DatiNuovoRecord = ([
             "Istruttore" => $post["Istruttore"],
-            "UsernameIstruttore"  => $post["UsernameIstruttore"],
-            "PasswordIstruttore"  => $post["PasswordIstruttore"],
+            "IdUser"  => $IdNuovoUtente,
             "Note"  => $post["Note"]
         ]);
 

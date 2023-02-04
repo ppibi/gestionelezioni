@@ -9,3 +9,9 @@
 .dropdown-item {
     background-color: #cee;
 }
+
+.form-inline {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Admin;
+namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Admin_Lezioni extends Model
+class Lezioni extends Model
 {
     protected $DBGroup = 'default';
     
@@ -29,7 +29,7 @@ class Admin_Lezioni extends Model
         return $this->where(["Lezione" => $Lezione])->first();
     } */
     
-    public function ritornaLezioni ($Lezione = false)
+    public function ritornaLezioni ($IdLezione = false)
     {
         $Database = \Config\Database::connect();        
         $QueryBuilder = $Database->table('lezioni');
@@ -38,10 +38,10 @@ class Admin_Lezioni extends Model
         $QueryBuilder->join("discipline", "discipline.IdDisciplina = lezioni.Lezioni_IdDisciplina");
         $QueryBuilder->orderBy ("Lezioni_GiornoSettimana");
         
-        if ($Lezione !== false) :
-            
-            $QueryBuilder->where("Lezione", $Lezione);
+        if ($IdLezione !== false) :
+            $QueryBuilder->where("IdLezioni", $IdLezione);
         endif;
+        $QueryBuilder->where("Lezioni_Attiva", TRUE);
         
         $RisultatoQuery = $QueryBuilder->get();
         

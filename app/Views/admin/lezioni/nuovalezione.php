@@ -19,7 +19,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Istruttore</span>
         </div>
-        <select name="Lezioni_IdIstruttore" size="<?php echo $NrIstruttori;?>" autofocus="yes"> 
+        <select class="form-control" name="Lezioni_IdIstruttore" size="<?php echo $NrIstruttori;?>" autofocus="yes"> 
             <?php for ($i=0; $i < $NrIstruttori; $i++ ) : ?>
                 <option value="<?php echo $ElencoIstruttori[$i]["IdIstruttore"];?>"
                     <?php if ($i == 0) :

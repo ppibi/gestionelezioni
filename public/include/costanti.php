@@ -11,5 +11,6 @@ const GiorniSettimana = array (
         "7-domenica"
     );
 
+define ("NumeroLezioniDaRicercare", 4);
 
 ?>
