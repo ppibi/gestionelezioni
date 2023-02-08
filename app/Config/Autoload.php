@@ -80,8 +80,8 @@ class Autoload extends AutoloadConfig
      * @phpstan-var list<string>
      */
     public $files = [
-        "include/funzioni.php",
-        "include/costanti.php"
+        "assets/funzioni.php",
+        "assets/costanti.php"
     ];
 
     /**

@@ -53,8 +53,13 @@ $routes->match(['get', 'post'], '/admin/istruttori/nuovoistruttore', [Admin_Gest
 $routes->get('/admin/istruttori/elencoistruttori', [Admin_GestioneIstruttori::class, 'index']);
 $routes->get('/admin/istruttori/(:segment)', [Admin_GestioneIstruttori::class, 'view']);
 $routes->match(['get', 'post'], '/admin/lezioni/nuovalezione', [Admin_GestioneLezioni::class, 'nuovalezione']);
-$routes->get('/admin/lezioni/elencolezioni', [Admin_GestioneLezioni::class, 'index']);
-$routes->get('/admin/lezioni/(:segment)', [Admin_GestioneLezioni::class, 'view']);
+$routes->get('/admin/lezioni/elencolezioni', [Admin_GestioneLezioni::class, 'elencolezioni']);
+$routes->get('/admin/lezioni/tuttelezioni', [Admin_GestioneLezioni::class, 'tuttelezioni']);
+$routes->get('/admin/lezioni/sololezioniattive', [Admin_GestioneLezioni::class, 'sololezioniattive']);
+$routes->get('/admin/lezioni/attivalezione/(:segment)', [Admin_GestioneLezioni::class, 'attivalezione']);
+$routes->get('/admin/lezioni/disattivalezione/(:segment)', [Admin_GestioneLezioni::class, 'disattivalezione']);
+$routes->get('/admin/lezioni/modificalezione/(:segment)', [Admin_GestioneLezioni::class, 'modificalezione']);
+$routes->get('/admin/lezioni/(:segment)', [Admin_GestioneLezioni::class, 'visualizzalezione']);
 $routes->match(['get', 'post'], '/admin/presenze/gestionepresenze', [Admin_GestionePresenze::class, 'adminInserimentoPresenze']);
 $routes->match(['get', 'post'], '/admin/utenti/nuovoutente', [Admin_GestioneUtenti::class, 'nuovoutente']);
 $routes->get('/admin/utenti/elencoutenti', [Admin_GestioneUtenti::class, 'index']);

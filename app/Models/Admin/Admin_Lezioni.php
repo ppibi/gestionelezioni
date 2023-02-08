@@ -39,7 +39,6 @@ class Admin_Lezioni extends Model
         $QueryBuilder->orderBy ("Lezioni_GiornoSettimana");
         
         if ($Lezione !== false) :
-            
             $QueryBuilder->where("Lezione", $Lezione);
         endif;
         
@@ -47,6 +46,22 @@ class Admin_Lezioni extends Model
         
         $ElencoLezioni = $RisultatoQuery->getResultArray();
         return $ElencoLezioni;
+    }
+    
+    public function verificaLezioneEsistente (array $DatiLezione)
+    {
+        $Database = \Config\Database::connect();        
+        $QueryBuilder = $Database->table('lezioni');
+        $QueryBuilder->select ("*");
+        $QueryBuilder->where("Lezioni_IdIstruttore", $DatiLezione["Lezioni_IdIstruttore"]);
+        $QueryBuilder->where("Lezioni_IdDisciplina", $DatiLezione["Lezioni_IdDisciplina"]);
+        $QueryBuilder->where("Lezioni_GiornoSettimana", $DatiLezione["Lezioni_GiornoSettimana"]);
+        $QueryBuilder->where("Lezioni_Ora", $DatiLezione["Lezioni_Ora"]);
+        
+        $RisultatoQuery = $QueryBuilder->get();
+        
+        $LezioneEsistente = $RisultatoQuery->getResultArray();
+        return !(empty($LezioneEsistente)) ;
     }
     
     public function ritornaLezioniIstruttore ($IdIstruttore = false)

@@ -2,9 +2,9 @@
 <?= validation_list_errors() ?>
 
 <?php 
-    $RiferimentoLezioni = new \App\Models\Lezioni();
+    $ModelloLezioni = new \App\Models\Lezioni();
     
-    $RiferimentoIstruttori = new \App\Models\Istruttori();
+    $ModelloIstruttori = new \App\Models\Istruttori();
     
     $ModelloIdentitaUtente = new \CodeIgniter\Shield\Models\UserIdentityModel;
     $UtenteLoggato = auth()->user();
@@ -20,7 +20,7 @@
     
     <?php
     if ($IdIstruttore == 0) : 
-        $ElencoIstruttori = $RiferimentoIstruttori->ritornaIstruttori();
+        $ElencoIstruttori = $ModelloIstruttori->ritornaIstruttori();
         $NrIstruttori = count($ElencoIstruttori); ?>
         <div class="container pt-3">
         <form class="form-inline" action="/presenze/inseriscipresenze" method="post">
@@ -39,7 +39,7 @@
     <?php
     else: 
         if (!$UtenteIstruttore) : 
-            $DatiIstruttore = $RiferimentoIstruttori->ritornaIstruttori($IdIstruttore); ?>
+            $DatiIstruttore = $ModelloIstruttori->ritornaIstruttori($IdIstruttore); ?>
             <div class="container-fluid text-center pt-3"> 
                 <h3>Istruttore: <?= esc ($DatiIstruttore[0]["Istruttore"]);?></h3></div>
             </div>
@@ -47,13 +47,13 @@
         endif;
         $RicercaLezione = 0;
         if ($IdLezioni == 0) :
-            $ElencoLezioni = $RiferimentoLezioni->ritornaLezioniIstruttore($IdIstruttore);
+            $ElencoLezioni = $ModelloLezioni->ritornaLezioniIstruttore($IdIstruttore);
             $NrLezioni = count($ElencoLezioni); 
             if ($NrLezioni > 1 ):
                 $RicercaLezione = 1;
             endif;
         else:
-            $ElencoLezioni = $RiferimentoLezioni->ritornaLezioni($IdLezioni); 
+            $ElencoLezioni = $ModelloLezioni->ritornaLezioni($IdLezioni); 
         endif;
         if ($RicercaLezione ): ?>
 

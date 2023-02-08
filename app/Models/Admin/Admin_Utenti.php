@@ -56,6 +56,13 @@ class Admin_Utenti extends Model
         return $ElencoGruppiUtenti;
     } 
     
+    public function ritornaUtenteConnesso ()
+    {
+        $IdUtenteLoggato = auth()->id();
+               
+        return $this->where(["id" => $IdUtenteLoggato])->first();
+    } 
+    
 }
 
 ?>

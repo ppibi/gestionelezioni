@@ -15,7 +15,7 @@ class Admin_GestionePresenze extends \App\Controllers\BaseController {
         // Checks whether the form is submitted.
         if (! $this->request->is("post")) :
             // The form is not submitted, so returns the form.
-            return view("templates/header_admin", ["Titolo" => "Inserimento presenze"])
+            return view("templates/header_admin", ["Titolo" => TitoloMenuGestionePresenze])
                 . view("admin/presenze/gestionepresenze")
                 . view("templates/footer");
         endif;
@@ -23,7 +23,7 @@ class Admin_GestionePresenze extends \App\Controllers\BaseController {
 //        $post = $this->request->getPost(["IdIstruttore", "IdLezione", "GiornoLezione"]);
         $ValoriPost = $this->request->getPost(null);
 
-        $Dati["Titolo"] = "Inserimento presenze";
+        $Dati["Titolo"] = TitoloMenuGestionePresenze;
         $Dati["IdIstruttore"] = $ValoriPost["IdIstruttore"];
         if (isset($ValoriPost["IdLezione"]) ) :
             $Dati["IdLezione"] = $ValoriPost["IdLezione"];
@@ -55,6 +55,22 @@ class Admin_GestionePresenze extends \App\Controllers\BaseController {
                     
                 endif;
             endforeach;
+            
+        endif; 
+
+        if ($ValoriPost["submit"] == "Seleziona altri partecipanti" ) :
+            if (isset($ValoriPost["IdLezione"]) ) :
+                $DataPresenza = date_format (date_create($Dati["GiornoLezione"]), "Y-m-d");
+                $DatiPresenza = ([
+                        "IdLezione" => $Dati["IdLezione"],
+                        "IdTesserato"  => $ValoriPost["IdTesserato"],
+                        "Data"  => $DataPresenza,
+                        "Presenza"  => 1
+                        ]);
+                if (!$ModelloPresenze->verificaPresenzaTesseratoinLezione($DatiPresenza["IdTesserato"], $DatiPresenza["IdLezione"], $DatiPresenza["Data"])) :
+                    $ModelloPresenze->save($DatiPresenza);
+                endif;
+            endif;
             
         endif; 
 

@@ -37,6 +37,27 @@ class Presenze extends Model {
         return $TesseratoPresente;
     }
 
+    public function verificaPresenzaTesseratoinTipoLezione ($IdTesserato, $IdLezione) {
+        $Database = \Config\Database::connect();        
+        $QueryBuilder = $Database->table('presenze_lezioni');
+        $QueryBuilder->select ("IdTesserato");
+        $QueryBuilder->distinct (TRUE);
+        $QueryBuilder->where("IdTesserato", $IdTesserato);
+        $QueryBuilder->where("IdLezione", $IdLezione);
+
+        $RisultatoQuery = $QueryBuilder->get();
+
+        $DatiPresenzaTesserato = $RisultatoQuery->getRowArray();
+
+        if (empty($DatiPresenzaTesserato)) :
+            $TesseratoPresente = 0;
+        else:
+            $TesseratoPresente = 1;
+        endif;
+        
+        return $TesseratoPresente;
+    }
+
     public function ritornaTesseratiTipoLezione ($IdLezione) {
         $Database = \Config\Database::connect();        
         $QueryBuilder = $Database->table('presenze_lezioni');
@@ -88,9 +109,15 @@ class Presenze extends Model {
         foreach ($ElencoPartecipanti as $Partecipante) :
             $ElencoCompletoPartecipanti[$NProgPartecipanti]["IdTesserato"] = $Partecipante["IdTesserato"];
             $ElencoCompletoPartecipanti[$NProgPartecipanti]["Tesserato"] = $ModelloAllievi->ritornaDatiTesserato($Partecipante["IdTesserato"])["Tesserato"];
+            $ElencoCompletoPartecipanti[$NProgPartecipanti]["TesseratoNomeCognome"] = $ModelloAllievi->ritornaDatiTesserato($Partecipante["IdTesserato"])["TesseratoNomeCognome"];
             $NProgPartecipanti++;
         endforeach;
+        foreach ($ElencoCompletoPartecipanti as $Tesserato => $Partecipante) :
+            $ElencoAlfabeticoPartecipanti[$Tesserato] = $Partecipante["TesseratoNomeCognome"];
+        endforeach;
         
+        array_multisort($ElencoAlfabeticoPartecipanti, SORT_ASC, $ElencoCompletoPartecipanti);
+            
         return $ElencoCompletoPartecipanti;
 
     }

@@ -4,79 +4,130 @@
 <?php 
     $RiferimentoIstruttori = new \App\Models\Admin\Admin_Istruttori();
     $ElencoIstruttori = $RiferimentoIstruttori->ritornaIstruttori();
-    $NrIstruttori = count($ElencoIstruttori);
+    $NrIstruttori = min(count($ElencoIstruttori),4);
+    $NrIstruttori = NumeroOpzioniSelectLezione;
     
     $RiferimentoDiscipline = new \App\Models\Admin\Admin_Discipline();
     $ElencoDiscipline = $RiferimentoDiscipline->ritornaDiscipline(); 
-    $NrDiscipline = count($ElencoDiscipline);
+    $NrDiscipline = min(count($ElencoDiscipline),4);
+    $NrDiscipline = NumeroOpzioniSelectLezione;
     
 ?>
+<div class="form-elements-wrapper pt-3">
 
-<form action="/admin/lezioni/nuovalezione" method="post">
-    <?= csrf_field() ?>
+    <form action="/admin/lezioni/nuovalezione" method="post">
+        <?= csrf_field() ?>
+        <div class="row justify-content-center">
 
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Istruttore</span>
+            <div class="col-lg-3 gx-1">
+                <div class="card-style-1 mb-1 text-center">
+                    <div class="select-style-1 mb-1">
+                        <label>
+                            <?php echo MsgIstruttore;?>
+                        </label>
+                        <div class="select-position py-0">
+                            <select class="py-0" id="selezionaIstruttore" name="Lezioni_IdIstruttore" size="<?php echo $NrIstruttori;?>" autofocus="yes"> 
+                                <?php foreach ($ElencoIstruttori as $Istruttore) : ?>
+                                    <option class="text-center" value="<?= esc ($Istruttore["IdIstruttore"]);?>">
+                                        <?= esc ($Istruttore["Istruttore"]);?>
+                                    </option> 
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 gx-1">
+                <div class="card-style-1 mb-1 text-center">
+                    <div class="select-style-1 mb-1">
+                        <label>
+                            <?php echo MsgDisciplina;?>
+                        </label>
+                        <div class="select-position py-0">
+                            <select class="py-0" id="selezionaDisciplina" name="Lezioni_IdDisciplina" size="<?php echo $NrDiscipline;?>" autofocus="yes"> 
+                                <?php foreach ($ElencoDiscipline as $Disciplina) : ?>
+                                    <option class="text-center" value="<?= esc ($Disciplina["IdDisciplina"]);?>">
+                                        <?= esc ($Disciplina["Disciplina"]);?>
+                                    </option> 
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 gx-1">
+                <div class="card-style-1 mb-1 text-center">
+                    <div class="select-style-1 mb-1">
+                        <label>
+                            <?php echo MsgGiorno;?>
+                        </label>
+                        <div class="select-position py-0">
+                                <select class="py-0" id="selezionaDisciplina" name="Lezioni_GiornoSettimana" size="<?php echo NumeroOpzioniSelectLezione;?>" autofocus="yes"> 
+                                    <?php foreach (GiorniSettimana as $Giorno) : ?>
+                                        <option class="text-center" value="<?= esc ($Giorno);?>">
+                                            <?= esc (substr($Giorno,2));?>
+                                        </option> 
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <select class="form-control" name="Lezioni_IdIstruttore" size="<?php echo $NrIstruttori;?>" autofocus="yes"> 
-            <?php for ($i=0; $i < $NrIstruttori; $i++ ) : ?>
-                <option value="<?php echo $ElencoIstruttori[$i]["IdIstruttore"];?>"
-                    <?php if ($i == 0) :
-                            echo " selected";
-                        endif; ?>>
-                    <?php echo $ElencoIstruttori[$i]["Istruttore"];?>
-                </option> 
-                
-            <?php endfor; ?>
-        </select>
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Disciplina</span>
-        </div>
 
-        <select name="Lezioni_IdDisciplina" size="7" autofocus="yes"> 
-            <?php for ($i=0; $i < $NrDiscipline; $i++ ) : ?>
-                <option value="<?php echo $ElencoDiscipline[$i]["IdDisciplina"];?>"
-                     <?php if ($i == 0) :
-                            echo " selected";
-                        endif; ?>>
-                    <?php echo $ElencoDiscipline[$i]["Disciplina"];?>
-                </option> 
-                
-            <?php endfor; ?>
-        </select>
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="card-style-1 mb-1 text-center">
+                    <div class="row">
+                        <div class="col-sm-4 d-flex justify-content-center">
+                            <span class="align-self-center">
+                                <?php echo MsgOra;?>
+                            </span>
+                        </div>
+                        <div class="col-sm-6">
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Lezioni_Ora" 
+                            aria-label="Lezioni_Ora"
+                            aria-describedby="basic-addon1" 
+                            name="Lezioni_Ora" 
+                            value="<?= set_value("Lezioni_Ora") ?>">
+                        </div>
+                    </div>
+                </div>
+            </div>
     
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Giorno della settimana</span>
+            <div class="col-lg-5">
+                <div class="card-style-1 mb-1 text-center">
+                    <div class="row">
+                        <div class="col-sm-4 d-flex justify-content-center">
+                            <span class="align-self-center">
+                                <?php echo MsgNMaxAllievi;?>
+                            </span>
+                        </div>
+                        <div class="col-sm-6">
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Lezioni_MaxAllievi" 
+                            aria-label="Lezioni_MaxAllievi"
+                            aria-describedby="basic-addon1" 
+                            name="Lezioni_MaxAllievi" 
+                            value="<?= set_value("Lezioni_MaxAllievi") ?>">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <select name="Lezioni_GiornoSettimana" size="7" autofocus="yes"> 
-            <?php for ($i=0; $i < 7; $i++ ) : ?>
-                <option value="<?php echo GiorniSettimana[$i];?>"
-                    <?php if ($i == 0) :
-                            echo " selected";
-                        endif; ?>>
-                    <?php echo GiorniSettimana[$i];?>
-                </option> 
-                
-            <?php endfor; ?>
-        </select>
-
+        <div class="row text-center">
+            <div class="col align-self-center">
+                <input class="btn btn-primary my-1 ml-3 mr-3" type="submit" name="submit" value="<?php echo MsgInserimento;?>">
+            </div>
+        </div>
     </div>
-    
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Ora</span>
-        </div>
-        <input type="text" class="form-control" placeholder="Lezioni_Ora" aria-label="Lezioni_Ora" aria-describedby="basic-addon1" name="Lezioni_Ora" value="<?= set_value("Lezioni_Ora") ?>">
-    </div> 
 
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">N. max allievi</span>
-        </div>
-        <input type="integer" class="form-control" placeholder="Lezioni_MaxAllievi" aria-label="Lezioni_MaxAllievi" aria-describedby="basic-addon1" name="Lezioni_MaxAllievi" >
-    </div> 
-
-    <input type="submit" name="submit" value="Inserisci">
 </form>
